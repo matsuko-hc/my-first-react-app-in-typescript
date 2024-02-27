@@ -26,12 +26,23 @@ const Counter: React.FunctionComponent<{}> = () => {
 		renderTimes.current = renderTimes.current +1
 	})
 
+	const ref = useRef<HTMLInputElement>(null!)
+	//null!で、その直前のデータはnull型じゃないよ！ということをtypescriptのコンパイラに明示的に伝える。
+	const focusInput = () => {
+		ref.current.focus();
+		// const current = ref.current;
+		// if (current != null) {
+		// 	current.focus();
+		// }
+	}
 	return (
 		<div>
 			<div>value: {value}</div>
 			<button onClick={increment}>+1</button>
 			<button onClick={decrement}>-1</button>
 			<div>This component was rerendered{renderTimes.current} times</div>
+			<input ref={ref} type="text" />
+			<button onClick={focusInput}>Click!</button>
 		</div>
 	);
 };
